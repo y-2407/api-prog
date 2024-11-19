@@ -88,6 +88,7 @@ paths:
                   error:
                     type: string
                     example: "Unsupported Media Type"
+  /data/{id}:
     get:
       summary: Retrieve a record by ID
       tags:
@@ -193,6 +194,55 @@ paths:
                   error:
                     type: string
                     example: "Record not found"
+  /login:
+    post:
+      summary: Login to the API
+      tags:
+        - Authentication
+      description: Authenticates a user and provides a Bearer token for future API calls.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "jk"
+                password:
+                  type: string
+                  example: "sala"
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    example: "jk"
+                  access_token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  token_type:
+                    type: string
+                    example: "Bearer"
+                  expires_in:
+                    type: string
+                    example: "1h"
+        '401':
+          description: Login failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Login failed"
 
 components:
   schemas:
@@ -200,15 +250,16 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
-          example: 111
-        forename:
+          #type: integer
+          #format: int64
           type: string
-          example: Roy
-        surname:
+          example: "4"
+        Firstname:
           type: string
-          example: Fielding
+          example: "Roy"
+        Surname:
+          type: string
+          example: "Fielding"
 
   securitySchemes:
     bearerAuth:

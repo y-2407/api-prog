@@ -1,4 +1,5 @@
 import express from 'express';
+import {verifyToken} from './utils.js';
 import cors from "cors";
 import YAML from 'yamljs';
 import swaggerUi from 'swagger-ui-express';
@@ -18,7 +19,7 @@ app.use(cors());
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/', index);
-app.use('/data', data);
+app.use('/data', verifyToken, data);
 app.use('/login', login);
 //const swaggerOptions = { }
 //app.use('/yaml', express.static('./openapi/api.yaml'))

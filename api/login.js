@@ -1,15 +1,8 @@
 import { Router } from "express"; 
 import jwt from 'jsonwebtoken';
+import {getUsers} from '../database.js'
 let router = Router()
-
-let users = [
-    {"username": "jk", "password": "sala", "token": ""},
-    {"username": "pl", "password": "pass", "token": ""},
-]
-
-export const getUsers = () => {
-    return users;
-}
+let users = getUsers()
 
 router.post('/', (req, res) => {
     const username = req.body.username;

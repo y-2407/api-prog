@@ -1,11 +1,7 @@
 import { Router } from "express"; 
+import {getData} from '../database.js'
 let router = Router()
-
-let data = [
-    {"id": "1", "Firstname": "Jyri", "Surname": "Kemppainen"},
-    {"id": "2","Firstname": "Petri", "Surname": "Laitinen"}
-
-]
+let data = getData()
 
 router.get('/', (req, res) => {
     res.json( data )
@@ -39,13 +35,14 @@ router.post('/', (req, res) => {
     }
 });*/
 
+
 router.delete('/:id', (req, res) => {
     const index = data.findIndex(b => b.id === req.params.id);
     if (index === -1){
         return res.status(404).json({ "error": "Record not found"});
     }
     data.splice(index, 1);
-    res.status(200).json({ "message" : "Record deleted"});
+    return res.status(200).json({ "message" : "Record deleted"});
 });
 
 router.put('/:id', (req, res) => {
@@ -62,5 +59,7 @@ router.put('/:id', (req, res) => {
         return res.status(200).json(data[index]);
     }
 });
+
+
 
 export default router;
